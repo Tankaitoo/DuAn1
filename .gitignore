@@ -1,0 +1,7 @@
+.env
+node_modules/
+vendor/
+composer-lock.json
+package-lock.json
+.idea/
+.svcode/
