@@ -4,7 +4,6 @@ namespace App;
 
 class Route
 {
-
     private static $routes = [];
     public static function get($url, $controllerMethod)
     {

@@ -22,6 +22,7 @@ class Header extends BaseView
             <!-- Favicon icon -->
             <link rel="icon" type="image/png" sizes="16x16" href="<?= APP_URL ?>/public/assets/admin/images/favicon.png">
             <!-- CSS -->
+
             <link href="<?= APP_URL ?>/public/assets/admin/libs/flot/css/float-chart.css" rel="stylesheet">
             <link rel="stylesheet" type="text/css" href="<?= APP_URL ?>/public/assets/admin/extra-libs/multicheck/multicheck.css">
             <link href="<?= APP_URL ?>/public/assets/admin/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
@@ -33,6 +34,8 @@ class Header extends BaseView
 
             <!-- Custom CSS -->
             <link href="<?= APP_URL ?>/public/assets/admin/dist/css/style.min.css" rel="stylesheet">
+
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
         </head>
 
@@ -53,18 +56,20 @@ class Header extends BaseView
                             <!-- Logo -->
                             <!-- ============================================================== -->
                             <a class="navbar-brand" href="/admin">
+                                
                                 <!-- Logo icon -->
                                 <b class="logo-icon ps-2">
+                                    <h3 style="color: white;">ADMIN</h3>
                                     <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                                     <!-- Dark Logo icon -->
-                                    <img src="<?= APP_URL ?>/public/assets/admin/images/logo-icon.png" alt="homepage" class="light-logo" />
+                                    <!-- <img src="<?= APP_URL ?>/public/assets/admin/images/logo-icon.png" alt="homepage" class="light-logo" /> -->
 
                                 </b>
                                 <!--End Logo icon -->
                                 <!-- Logo text -->
                                 <span class="logo-text">
                                     <!-- dark Logo text -->
-                                    <img src="<?= APP_URL ?>/public/assets/admin/images/logo-text.png" alt="homepage" class="light-logo" />
+                                    <!-- <img src="<?= APP_URL ?>/public/assets/admin/images/logo-text.png" alt="homepage" class="light-logo" /> -->
 
                                 </span>
                                 <!-- Logo icon -->
@@ -108,7 +113,7 @@ class Header extends BaseView
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end user-dd animated" aria-labelledby="navbarDropdown">
 
-                                        <a class="dropdown-item" href=""><i class="fa fa-power-off me-1 ms-1"></i> Đăng xuất</a>
+                                        <a class="dropdown-item" href="/logout"><i class="fa fa-power-off me-1 ms-1"></i> Đăng xuất</a>
                                     </ul>
                                 </li>
                                 <!-- ============================================================== -->
@@ -161,6 +166,18 @@ class Header extends BaseView
                                     <ul aria-expanded="false" class="collapse  first-level">
                                         <li class="sidebar-item">
                                             <a href="/admin/comments" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Danh sách </span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-receipt"></i><span class="hide-menu">Người dùng </span></a>
+                                    <ul aria-expanded="false" class="collapse  first-level">
+                                        <li class="sidebar-item">
+                                            <a href="/admin/users" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Danh sách </span></a>
+                                        </li>
+                                        <li class="sidebar-item">
+                                            <a href="/admin/users/create" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Thêm mới </span></a>
                                         </li>
                                     </ul>
                                 </li>

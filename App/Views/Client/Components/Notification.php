@@ -8,6 +8,7 @@ class Notification extends BaseView
 {
     public static function render($data = null)
     {
+        
         if (isset($_SESSION['success'])) :
             foreach ($_SESSION['success'] as $key => $value) :
 ?>

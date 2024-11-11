@@ -7,7 +7,6 @@ composer.lock
 /logs/php/php-errors.log
 ### Ampps ###
 cgi-bin
-
-.env
 .vscode/
 **/.DS_Store
+.env

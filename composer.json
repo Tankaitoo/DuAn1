@@ -1,5 +1,5 @@
 {
-    "name": "chi/php1_asm",
+    "name": "kienpham/duanmau_asm",
     "autoload": {
         "psr-4": {
             "App\\":"App/"
@@ -8,8 +8,8 @@
     },
     "authors": [
         {
-            "name": "chithl",
-            "email": "chithl@fpt.edu.vn"
+            "name": "kienpt",
+            "email": "phamtrungkiendacm2019@gmail.com"
         }
     ],
     "require": {
