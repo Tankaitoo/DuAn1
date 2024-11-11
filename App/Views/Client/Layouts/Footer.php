@@ -10,7 +10,7 @@ class Footer extends BaseView
     {
 ?>
 
-        <footer color="blue" class="footer">LyChiThanh_PC08044</footer>
+        <footer class="footer">Đây là footer client. Copyright &copy; Chihihi</footer>
 
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->

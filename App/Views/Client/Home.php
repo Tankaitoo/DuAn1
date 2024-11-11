@@ -10,9 +10,7 @@ class Home extends BaseView
     {
 ?>
 
-        
-        <img src="/public/assets/client/images/banner.jpg" alt="" width="100%">
+        <h1>Home Client</h1>
 <?php
-        
     }
 }

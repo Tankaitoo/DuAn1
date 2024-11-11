@@ -14,7 +14,7 @@ class Footer extends BaseView
                 <!-- footer -->
                 <!-- ============================================================== -->
                 <footer class="footer text-center">
-                        Lý Chí Thanh
+                        Copyright &copy; by Chihihi
                 </footer>
                 <!-- ============================================================== -->
                 <!-- End footer -->
@@ -30,7 +30,6 @@ class Footer extends BaseView
                 <!-- ============================================================== -->
                 <!-- All Jquery -->
                 <!-- ============================================================== -->
-
                 <script src="<?=APP_URL?>/public/assets/admin/libs/jquery/dist/jquery.min.js"></script>
                 <!-- Bootstrap tether Core JavaScript -->
                 <script src="<?=APP_URL?>/public/assets/admin/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
