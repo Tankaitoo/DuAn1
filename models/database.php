@@ -3,7 +3,7 @@
 $hostname = "localhost";
 $db_username = "root";
 $db_password = "myspl";
-$db_database = "database";
+$db_database = "duan1_hk_fall2024";
 $connection = new  myspl(
     $server,
     $db_username,
