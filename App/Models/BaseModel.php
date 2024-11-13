@@ -52,10 +52,6 @@ abstract class BaseModel implements CrudInterface
     }
     public function create(array $data)
     {
-        // $sql ="INSERT INTO $this->table (name, description, status) VALUES ('category test', 'category test description', '1')";
-
-        // $result = $this->_conn->connect()->query($sql);
-        // return $result;
 
         try {
             $sql = "INSERT INTO $this->table (";

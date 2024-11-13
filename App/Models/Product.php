@@ -63,6 +63,7 @@ class Product extends BaseModel
             FROM products 
             INNER JOIN categories 
             ON products.category_id=categories.id;";
+            
 
             $result = $this->_conn->MySQLi()->query($sql);
             return $result->fetch_all(MYSQLI_ASSOC);

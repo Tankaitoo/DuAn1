@@ -71,7 +71,6 @@ class Comment extends BaseModel
             INNER JOIN users 
             ON comments.user_id=users.id
             WHERE comments.id=?";
-
             $conn = $this->_conn->MySQLi();
             $stmt = $conn->prepare($sql);
 

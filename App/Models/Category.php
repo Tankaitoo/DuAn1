@@ -11,6 +11,7 @@ class Category extends BaseModel
     {
         return $this->getAll();
     }
+    
     public function getOneCategory($id)
     {
         return $this->getOne($id);

@@ -21,18 +21,6 @@ class Database
         $this->_password = $_ENV['DB_PASSWORD'] ;
         $this->_database = $_ENV['DB_NAME'];
     }
-    // public function connect()
-    // {
-
-    //     // Create connection
-    //     $conn = new mysqli($_ENV['DB_HOST'], $_ENV['DB_USERNAME'], $_ENV['DB_PASSWORD'], $_ENV['DB_NAME']);
-
-    //     // Check connection
-    //     if ($conn->connect_error) {
-    //         die("Connection failed: " . $conn->connect_error);
-    //     }
-    //     return $conn;
-    // }
 
     public function Pdo()
     {
