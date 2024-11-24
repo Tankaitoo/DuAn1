@@ -45,7 +45,7 @@ class Index extends BaseView
                             ?>
                                     <tr>
                                         <th scope="row"><?= $key ?></th>
-                                        <td><img src="<?= $item['image'] ?>" alt="" style="width: 100px; height: 100px;"></td>
+                                        <td><img src="<?= APP_URL ?>/public/uploads/products/<?= $item['image'] ?>" alt="" style="width: 100px; height: 100px;"></td>
                                         <td><?= $item['name'] ?></td>
                                         <td><?= $item['quantity'] ?></td>
                                         <td><?= number_format($item['price']) ?></td>
