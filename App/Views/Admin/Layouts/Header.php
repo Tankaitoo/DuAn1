@@ -7,7 +7,7 @@ use App\Views\BaseView;
 class Header extends BaseView
 {
     public static function render($data = null)
-    {
+    {   
 
 ?>
         <!DOCTYPE html>
@@ -59,12 +59,13 @@ class Header extends BaseView
                                 
                                 <!-- Logo icon -->
                                 <b class="logo-icon ps-2">
-                                    <h3 style="color: white;">ADMIN</h3>
+                                    <!-- <h3 style="color: white;">ADMIN</h3> -->
                                     <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                                     <!-- Dark Logo icon -->
-                                    <!-- <img src="<?= APP_URL ?>/public/assets/admin/images/logo-icon.png" alt="homepage" class="light-logo" /> -->
+                                    <img src="<?= APP_URL ?>/public/assets/admin/images/logo.png" alt="Admin Logo" class="light-logo"  width="60%" height="50px"/>ADMIN
+</b>
 
-                                </b>
+
                                 <!--End Logo icon -->
                                 <!-- Logo text -->
                                 <span class="logo-text">

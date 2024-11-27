@@ -14,6 +14,7 @@ class Home extends BaseView
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     
     <!-- Custom CSS for better styling -->
+     <link rel="stylesheet" href="styles.css">
     <style>
         /* Banner Styles */
         #banner {
@@ -52,7 +53,6 @@ class Home extends BaseView
             font-size: 1.5rem;
         }
 
-        /* Other Sections */
         #intro, #services { background-color: #f8f9fa; padding: 50px 0; border-radius: 10px; }
         #intro img { max-width: 350px; border-radius: 10px; }
         #services .card { transition: transform 0.3s ease, box-shadow 0.3s ease; border: none; background-color: #ffffff; }
@@ -107,6 +107,49 @@ class Home extends BaseView
             </div>
         </div>
     </section>
+    <section id="featured-products" class="py-5">
+    <div class="container"> 
+        <h2 class="text-center mb-5">SẢN PHẨM NỔI BẤT</h2>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <?php if (!empty($data['products'])) : ?>
+                <?php foreach ($data['products'] as $product) : ?>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm border-0">
+                            <div class="position-relative">
+                                <span class="badge bg-warning text-dark position-absolute top-0 start-0 m-2">Hot</span>
+                                <img 
+                                    src="<?= APP_URL ?>/public/uploads/products/<?= $product['image'] ?>" 
+                                    class="card-img-top" 
+                                    alt="<?= $product['name'] ?>" 
+                                    style="height: 200px; object-fit: cover;">
+                            </div>
+                            <div class="card-body text-center">
+                                <h5 class="card-title"><?= $product['name'] ?></h5>
+                                <?php if ($product['discount_price'] > 0) : ?>
+                                    <p class="text-muted"><strike><?= number_format($product['price']) ?> đ</strike></p>
+                                    <p class="text-danger"><strong><?= number_format($product['price'] - $product['discount_price']) ?> đ</strong></p>
+                                <?php else : ?>
+                                    <p class="text-primary"><strong><?= number_format($product['price']) ?> đ</strong></p>
+                                <?php endif; ?>
+                            </div>
+                            <div class="card-footer bg-white d-flex justify-content-center gap-2">
+                                <a href="/products/<?= $product['id'] ?>" class="btn btn-sm btn-primary">Chi tiết</a>
+                                <form action="/cart/add" method="post" class="d-inline-block">
+                                    <input type="hidden" name="method" value="POST">
+                                    <input type="hidden" name="id" value="<?= $product['id'] ?>">
+                                    <button type="submit" class="btn btn-sm btn-success">Thêm vào giỏ</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else : ?>
+                <p class="text-center text-muted">Không có sản phẩm nổi bật.</p>
+            <?php endif; ?>
+        </div>
+    </div>
+</section>
+
 
     <!-- Bootstrap JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
