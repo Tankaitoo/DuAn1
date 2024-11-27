@@ -60,6 +60,52 @@ class Home extends BaseView
         #services .card img { max-width: 80px; margin-bottom: 15px; }
     </style>
 </head>
+
+    <style>
+        /* Banner Styles */
+        #banner {
+            height: 60vh;
+            background: url('/public/assets/client/images/banner1.jpg') no-repeat center center;
+            background-size: cover;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+        #banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+            z-index: 1;
+        }
+        #banner .content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+        #banner h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        #banner p {
+            font-size: 1.5rem;
+        }
+
+        #intro, #services { background-color: #f8f9fa; padding: 50px 0; border-radius: 10px; }
+        #intro img { max-width: 350px; border-radius: 10px; }
+        #services .card { transition: transform 0.3s ease, box-shadow 0.3s ease; border: none; background-color: #ffffff; }
+        #services .card:hover { transform: translateY(-10px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); }
+        #services .card img { max-width: 80px; margin-bottom: 15px; }
+    </style>
+</head>
 <body>
     <!-- New Banner Section -->
     <div id="banner">
