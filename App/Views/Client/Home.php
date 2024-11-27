@@ -60,6 +60,53 @@ class Home extends BaseView
         #services .card:hover { transform: translateY(-10px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); }
         #services .card img { max-width: 80px; margin-bottom: 15px; }
     </style>
+    
+    <!-- Custom CSS for better styling -->
+     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Banner Styles */
+        #banner {
+            height: 60vh;
+            background: url('/public/assets/client/images/banner1.jpg') no-repeat center center;
+            background-size: cover;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+        #banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+            z-index: 1;
+        }
+        #banner .content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+        #banner h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        #banner p {
+            font-size: 1.5rem;
+        }
+
+        #intro, #services { background-color: #f8f9fa; padding: 50px 0; border-radius: 10px; }
+        #intro img { max-width: 350px; border-radius: 10px; }
+        #services .card { transition: transform 0.3s ease, box-shadow 0.3s ease; border: none; background-color: #ffffff; }
+        #services .card:hover { transform: translateY(-10px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); }
+        #services .card img { max-width: 80px; margin-bottom: 15px; }
+    </style>
 </head>
 
     <style>
@@ -180,6 +227,49 @@ class Home extends BaseView
             </div>
         </div>
     </section>
+    <section id="featured-products" class="py-5">
+    <div class="container"> 
+        <h2 class="text-center mb-5">SẢN PHẨM NỔI BẤT</h2>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <?php if (!empty($data['products'])) : ?>
+                <?php foreach ($data['products'] as $product) : ?>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm border-0">
+                            <div class="position-relative">
+                                <span class="badge bg-warning text-dark position-absolute top-0 start-0 m-2">Hot</span>
+                                <img 
+                                    src="<?= APP_URL ?>/public/uploads/products/<?= $product['image'] ?>" 
+                                    class="card-img-top" 
+                                    alt="<?= $product['name'] ?>" 
+                                    style="height: 200px; object-fit: cover;">
+                            </div>
+                            <div class="card-body text-center">
+                                <h5 class="card-title"><?= $product['name'] ?></h5>
+                                <?php if ($product['discount_price'] > 0) : ?>
+                                    <p class="text-muted"><strike><?= number_format($product['price']) ?> đ</strike></p>
+                                    <p class="text-danger"><strong><?= number_format($product['price'] - $product['discount_price']) ?> đ</strong></p>
+                                <?php else : ?>
+                                    <p class="text-primary"><strong><?= number_format($product['price']) ?> đ</strong></p>
+                                <?php endif; ?>
+                            </div>
+                            <div class="card-footer bg-white d-flex justify-content-center gap-2">
+                                <a href="/products/<?= $product['id'] ?>" class="btn btn-sm btn-primary">Chi tiết</a>
+                                <form action="/cart/add" method="post" class="d-inline-block">
+                                    <input type="hidden" name="method" value="POST">
+                                    <input type="hidden" name="id" value="<?= $product['id'] ?>">
+                                    <button type="submit" class="btn btn-sm btn-success">Thêm vào giỏ</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else : ?>
+                <p class="text-center text-muted">Không có sản phẩm nổi bật.</p>
+            <?php endif; ?>
+        </div>
+    </div>
+</section>
+
     <section id="featured-products" class="py-5">
     <div class="container"> 
         <h2 class="text-center mb-5">SẢN PHẨM NỔI BẤT</h2>
