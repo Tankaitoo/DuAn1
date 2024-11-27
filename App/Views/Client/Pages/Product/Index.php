@@ -9,85 +9,91 @@ class Index extends BaseView
 {
     public static function render($data = null)
     {
-
 ?>
 
+        <style>
+            .card:hover {
+                box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+                transform: translateY(-5px);
+                transition: all 0.3s ease;
+            }
+
+            .col-md-9 h1 {
+                font-size: 1.2rem;
+                color: #34495e;
+            }
+
+            .badge.bg-danger {
+                background-color: #e74c3c;
+                font-size: 0.6em;
+            }
+
+            .card-title {
+                font-weight: bold;
+                color: #34495e;
+            }
+
+            .card-link {
+                text-decoration: none;
+                color: inherit;
+            }
+
+            .card-link:hover .card-title {
+                color: #3498db;
+            }
+        </style>
 
         <div class="container mt-5 mb-5">
             <div class="row">
+                <!-- Sidebar -->
                 <div class="col-md-3">
-                    <?php
-                    Category::render($data['categories']);
-                    ?>
+                    <div class="sticky-top">
+                        <?php
+                        Category::render($data['categories']);
+                        ?>
+                    </div>
                 </div>
+
+                <!-- Products Section -->
                 <div class="col-md-9">
-                    <?php
-                    if (count($data) && count($data['products'])) :
-                    ?>
-                        <h1 class="text-center mb-3">Sản phẩm</h1>
-                        <div class="row">
-                            <?php
-                            foreach ($data['products'] as $item) :
-                            ?>
-                                <div class="col-md-4">
-                                    <div class="card mb-4 shadow-sm">
-                                        <img src="<?= APP_URL ?>/public/uploads/products/<?= $item['image'] ?>" class="card-img-top" alt="" style="width: 100%; display: block;" data-holder-rendered="true">
-                                        <div class="card-body">
-                                            <p class="card-text"><?= $item['name'] ?></p>
-                                            <?php
-                                            if ($item['discount_price'] > 0) :
-                                            ?>
-                                                <p>Giá gốc: <strike><?= number_format($item['price']) ?> đ</strike></p>
-                                                <p>Giá giảm: <strong class="text-danger"><?= number_format($item['price'] - $item['discount_price']) ?> đ</strong></p>
+                    <?php if (!empty($data['products'])) : ?>
+                        <h1 class="text-center mb-4 font-weight-bold text-uppercase">Sản phẩm</h1>
 
-                                            <?php
-                                            else :
-                                            ?>
-                                                <p>Giá tiền: <?= number_format($item['price']) ?> đ</p>
-
-                                            <?php
-                                            endif;
-                                            ?>
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div class="btn-group">
-                                                    <a href="/products/<?= $item['id'] ?>" type="button" class="btn btn-sm btn-outline-info">Chi tiết</a>
-                                                    <form action="/cart/add" method="post">
-                                                        <input type="hidden" name="method" id="" value="POST">
-                                                        <input type="hidden" name="product_id" value="<?= $item['id'] ?>">
-                                                        <input type="hidden" name="image" value="<?= $item['image'] ?>">
-                                                        <input type="hidden" name="name" value="<?= $item['name'] ?>">
-                                                        <input type="hidden" name="price" value="<?= $item['price'] ?>">
-                                                        <button type="submit" class="btn btn-sm btn-outline-success">Thêm vào giỏ hàng</button>
-                                                    </form>
-                                                </div>
+                        <div class="row row-cols-1 row-cols-md-3 g-4">
+                            <?php foreach ($data['products'] as $item) : ?>
+                                <div class="col">
+                                    <!-- Link bao quanh toàn bộ sản phẩm -->
+                                    <a href="/products/<?= $item['id'] ?>" class="card-link">
+                                        <div class="card h-100 shadow-sm border-0">
+                                            <div class="position-relative">
+                                                <span class="badge bg-danger position-absolute top-1 start-0 m-0">Sale</span>
+                                                <img src="<?= APP_URL ?>/public/uploads/products/<?= $item['image'] ?>" 
+                                                    class="card-img-top" 
+                                                    alt="<?= $item['name'] ?>" 
+                                                    style="height: 200px; object-fit: cover;">
+                                            </div>
+                                            <div class="card-body">
+                                                <h5 class="card-title"><?= $item['name'] ?></h5>
+                                                <?php if ($item['discount_price'] > 0) : ?>
+                                                    <p>Giá gốc: <strike><?= number_format($item['price']) ?> đ</strike></p>
+                                                    <p>Giá giảm: <strong class="text-danger"><?= number_format($item['price'] - $item['discount_price']) ?> đ</strong></p>
+                                                <?php else : ?>
+                                                    <p>Giá tiền: <?= number_format($item['price']) ?> đ</p>
+                                                <?php endif; ?>
                                             </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
-
-                            <?php
-                            endforeach;
-
-                            ?>
+                            <?php endforeach; ?>
                         </div>
-                    <?php
-                    else :
-                    ?>
-                        <h3 class="text-center text-danger">Không có sản phẩm</h3>
 
-                    <?php
-                    endif;
-                    ?>
+                    <?php else : ?>
+                        <h3 class="text-center text-danger">Không có sản phẩm</h3>
+                    <?php endif; ?>
                 </div>
             </div>
-
-
-
         </div>
 
-
-
 <?php
-
     }
 }

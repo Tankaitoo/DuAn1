@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 use App\Models\User;
 
-class AuthHelper{
+class AuthHelper {
     public static function register($data){
         $user = new User();
     
