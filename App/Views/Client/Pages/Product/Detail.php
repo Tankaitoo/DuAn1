@@ -10,13 +10,9 @@ class Detail extends BaseView
     public static function render($data = null)
     {
         $is_login = AuthHelper::checkLogin();
-        $product = $data['products'] ?? [];
-        $price = (float)($product['price'] ?? 0);
-        $discount_price = (float)($product['discount_price'] ?? 0);
-        $final_price = $price > 0 && $discount_price > 0 ? $price - $discount_price : $price;
 ?>
 <style>
-/* Styling cải tiến */
+    /* Thêm hiệu ứng cho các giá tiền */
 .price-section .original-price {
     text-decoration: line-through;
     color: gray;
@@ -31,11 +27,15 @@ class Detail extends BaseView
     font-size: 1.5em;
     font-weight: bold;
 }
+
+/* Cải tiến hiển thị hình ảnh */
 .product-image img {
     max-width: 100%;
     height: auto;
     border-radius: 8px;
 }
+
+/* Thêm hiệu ứng cho nút Thêm vào giỏ hàng */
 .btn-lg {
     background-color: #28a745;
     color: white;
@@ -44,46 +44,57 @@ class Detail extends BaseView
 .btn-lg:hover {
     background-color: #218838;
 }
+
+/* Cải tiến phần bình luận */
+.comment-widgets {
+    margin-top: 30px;
+}
 .comment-text {
     background-color: #f7f7f7;
     padding: 15px;
     border-radius: 10px;
     margin-bottom: 10px;
 }
-</style>
+.comment-footer {
+    display: flex;
+    justify-content: space-between;
+}
 
+</style>
 <div class="container mt-5 mb-5">
     <div class="row">
         <!-- Image Section -->
         <div class="col-md-6">
             <div class="product-image">
-                <img src="<?= APP_URL ?>/public/uploads/products/<?= $product['image'] ?? 'default.jpg' ?>" 
-                     alt="<?= $product['name'] ?? 'Sản phẩm' ?>" class="img-fluid">
+                <img src="<?= APP_URL ?>/public/uploads/products/<?= $data['products']['image'] ?>" alt="<?= $data['products']['name'] ?>" class="img-fluid">
             </div>
         </div>
 
         <!-- Product Info Section -->
         <div class="col-md-6">
-            <h2 class="product-title"><?= $product['name'] ?? 'Sản phẩm không có tên' ?></h2>
+            <h2 class="product-title"><?= $data['products']['name'] ?></h2>
 
-            <?php if ($discount_price > 0) : ?>
+            <?php if ($data['products']['discount_price'] > 0) : ?>
                 <div class="price-section">
-                    <h4 class="original-price"><?= number_format($price) ?> đ</h4>
-                    <h3 class="discounted-price"><?= number_format($final_price) ?> đ</h3>
+                    <h4 class="original-price"><strike><?= number_format($data['products']['price']) ?> đ</strike></h4>
+                    <h3 class="discounted-price"><?= number_format($data['products']['price'] - $data['products']['discount_price']) ?> đ</h3>
                 </div>
             <?php else : ?>
                 <div class="price-section">
-                    <h3 class="regular-price"><?= number_format($price) ?> đ</h3>
+                    <h3 class="regular-price"><?= number_format($data['products']['price']) ?> đ</h3>
                 </div>
             <?php endif; ?>
 
-            <p><strong>Danh mục:</strong> <?= $product['category_name'] ?? 'Không rõ' ?></p>
+            <p><strong>Danh mục:</strong> <?= $data['products']['category_name'] ?></p>
 
-            <!-- Chọn màu -->
+            <!-- Display Condition -->
+           
+
+            <!-- Display Color Options (if applicable) -->
             <div class="color-options">
                 <strong>Chọn màu:</strong>
                 <select class="form-control" name="color_id">
-                    <?php foreach ($data['colors'] ?? [] as $color) : ?>
+                    <?php foreach ($data['colors'] as $color) : ?>
                         <option value="<?= $color['id'] ?>" style="background-color: <?= $color['color_code'] ?>;">
                             <?= $color['color_name'] ?>
                         </option>
@@ -91,32 +102,29 @@ class Detail extends BaseView
                 </select>
             </div>
 
-            <form action="/cart/add" method="post" class="mt-3">
+            <form action="#" method="post" class="mt-3">
                 <input type="hidden" name="method" value="POST">
-                <input type="hidden" name="product_id" value="<?= $product['id'] ?? '' ?>">
-                <input type="hidden" name="image" value="<?= $product['image'] ?? '' ?>">
-                <input type="hidden" name="name" value="<?= $product['name'] ?? '' ?>">
-                <input type="hidden" name="price" value="<?= $final_price ?>">
-                <button type="submit" class="btn btn-lg">Thêm vào giỏ hàng</button>
+                <input type="hidden" name="id" value="<?= $data['products']['id'] ?>" required>
+                <button type="submit" class="btn btn-success btn-lg">Thêm vào giỏ hàng</button>
             </form>
         </div>
     </div>
 
-    <!-- Mô tả sản phẩm -->
+    <!-- Product Description -->
     <div class="row mt-4">
         <div class="col-12">
             <div class="card border-info">
                 <div class="card-header bg-info text-white">
-                    <strong>Mô tả</strong>
+                    <strong>Mô Tả</strong>
                 </div>
                 <div class="card-body">
-                    <p><?= $product['description'] ?? 'Không có mô tả.' ?></p>
+                    <p><?= $data['products']['description'] ?></p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Bình luận -->
+    <!-- Comments Section -->
     <div class="row mt-5">
         <div class="col-lg-12">
             <div class="card">
@@ -124,17 +132,17 @@ class Detail extends BaseView
                     <h4 class="card-title">Bình luận mới nhất</h4>
                 </div>
                 <div class="comment-widgets">
-                    <?php if (!empty($data['comments'])) : ?>
+                    <?php if (isset($data['comments']) && !empty($data['comments'])) : ?>
                         <?php foreach ($data['comments'] as $item) : ?>
-                            <div class="d-flex flex-row comment-row">
+                            <!-- Comment Row -->
+                            <div class="d-flex flex-row comment-row m-t-0">
                                 <div class="p-2">
-                                    <img src="<?= APP_URL ?>/public/uploads/users/<?= $item['avatar'] ?? 'default-avatar.jpg' ?>" 
-                                         alt="user" width="50" class="rounded-circle">
+                                    <img src="<?= APP_URL ?>/public/uploads/users/<?= $item['avatar'] ?? 'userimg.jpg' ?>" alt="user" width="50" class="rounded-circle">
                                 </div>
                                 <div class="comment-text w-100">
-                                    <h6 class="font-medium"><?= $item['name'] ?? 'Ẩn danh' ?></h6>
-                                    <p><?= $item['content'] ?? '' ?></p>
-                                    <span class="text-muted"><?= $item['date'] ?? '' ?></span>
+                                    <h6 class="font-medium"><?= $item['name'] ?> - <?= $item['username'] ?></h6>
+                                    <p><?= $item['content'] ?></p>
+                                    <span class="text-muted"><?= $item['date'] ?></span>
                                 </div>
                             </div>
                         <?php endforeach; ?>
@@ -143,16 +151,19 @@ class Detail extends BaseView
                     <?php endif; ?>
 
                     <?php if ($is_login) : ?>
-                        <!-- Form bình luận -->
-                        <div class="d-flex flex-row comment-row mt-3">
+                        <!-- Comment Form -->
+                        <div class="d-flex flex-row comment-row">
                             <div class="p-2">
                                 <img src="<?= APP_URL ?>/public/uploads/users/userimg.jpg" alt="user" width="50" class="rounded-circle">
                             </div>
                             <div class="comment-text w-100">
-                                <h6 class="font-medium">Bạn</h6>
-                                <form action="/comment/add" method="post">
-                                    <textarea class="form-control" name="content" placeholder="Nhập bình luận..." rows="3" required></textarea>
-                                    <button type="submit" class="btn btn-cyan btn-sm mt-2">Gửi</button>
+                                <h6 class="font-medium">Username</h6>
+                                <form action="#" method="post">
+                                    <div class="form-group">
+                                        <label for="comment">Bình luận:</label>
+                                        <textarea class="form-control" name="content" id="comment" rows="3" placeholder="Nhập bình luận..." required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-cyan btn-sm">Gửi</button>
                                 </form>
                             </div>
                         </div>
