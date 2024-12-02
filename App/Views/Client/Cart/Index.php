@@ -39,19 +39,24 @@ class Index extends BaseView
                         <tbody>
                             <?php
                             $total = 0;
-                            if (isset($_SESSION['cart'])) {
+                            if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
                                 foreach ($_SESSION['cart'] as $key => $item) {
-                                    $total += $item['price'] * $item['quantity'];
+                                    $price = isset($item['price']) ? (float)$item['price'] : 0; // Kiểm tra khóa price
+                                    $quantity = isset($item['quantity']) ? (int)$item['quantity'] : 0; // Kiểm tra khóa quantity
+                                    $name = isset($item['name']) ? $item['name'] : 'Không tên'; // Kiểm tra khóa name
+                                    $image = isset($item['image']) ? $item['image'] : ''; // Kiểm tra khóa image
+                                    $subtotal = $price * $quantity; // Tính tổng tiền sản phẩm
+                                    $total += $subtotal; // Cộng dồn vào tổng tiền
                             ?>
                                     <tr>
                                         <th scope="row"><?= $key ?></th>
-                                        <td><img src="<?= APP_URL ?>/public/uploads/products/<?= $item['image'] ?>" alt="" style="width: 100px; height: 100px;"></td>
-                                        <td><?= $item['name'] ?></td>
-                                        <td><?= $item['quantity'] ?></td>
-                                        <td><?= number_format($item['price']) ?></td>
-                                        <td><?= number_format($item['price'] * $item['quantity']) ?></td>
+                                        <td><img src="<?= APP_URL ?>/public/uploads/products/<?= $image ?>" alt="" style="width: 100px; height: 100px;"></td>
+                                        <td><?= $name ?></td>
+                                        <td><?= $quantity ?></td>
+                                        <td><?= number_format($price) ?></td>
+                                        <td><?= number_format($subtotal) ?></td>
                                         <td>
-                                            <a href="/cart/remove/<?= $item['product_id'] ?>" class="btn btn-danger">Xóa</a>
+                                            <a href="/cart/remove/<?= $item['product_id'] ?? 0 ?>" class="btn btn-danger">Xóa</a>
                                         </td>
                                     </tr>
                             <?php
@@ -61,7 +66,12 @@ class Index extends BaseView
                             <tr>
                                 <td colspan="6" scope="col">Tổng tiền</td>
                                 <td><?= number_format($total) ?> Vnd</td>
+                                <td colspan="7" class="text-end">
+                                    <a href="/checkout" class="btn btn-success">Thanh toán</a>
+                                </td>
                             </tr>
+
+
                         </tbody>
                     </table>
                 </div>
