@@ -59,7 +59,7 @@ class Index extends BaseView
                                         <div class="card-footer bg-white border-0 text-center">
                                             <a href="/products/<?= $item['id'] ?>" class="btn btn-sm btn-outline-primary">Xem chi tiết</a>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
                             <?php endforeach; ?>
                         </div>
