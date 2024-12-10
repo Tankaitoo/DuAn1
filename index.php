@@ -34,6 +34,13 @@ Route::get('/contact', 'App\Controllers\Client\ContactController@index');
 Route::get('/cart', 'App\Controllers\Client\CartController@index');
 Route::post('/cart/add', 'App\Controllers\Client\CartController@add');
 Route::get('/cart/remove/{id}', 'App\Controllers\Client\CartController@remove');
+// search
+Route::get('/search', 'App\Controllers\Client\SearchController@index');
+Route::get('/search', 'App\Controllers\Client\ProductController@search');
+
+
+
+
 
 
 //*** Form
@@ -99,6 +106,8 @@ Route::put('/admin/products/{id}', 'App\Controllers\Admin\ProductController@upda
 
 // DELETE /products/{id} (delete sản phẩm với id cụ thể)
 Route::delete('/admin/products/{id}', 'App\Controllers\Admin\ProductController@delete');
+// Định nghĩa route cho tìm kiếm sản phẩm
+Route::get('/admin/products/search', 'App\Controllers\Admin\ProductController@search');
 
 //------------------------------------------------------------------------
 //  *** User

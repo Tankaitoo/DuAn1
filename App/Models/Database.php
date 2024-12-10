@@ -13,6 +13,7 @@ class Database
     private $_username ;
     private $_password;
     private $_database;
+    private static $connection;
 
     public function __construct()
     {

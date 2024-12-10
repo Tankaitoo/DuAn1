@@ -211,4 +211,25 @@ class ProductController
         //     //header('Location: /admin/categories');
         // }
     }
+    // Search Demo
+    // ProductController.php
+
+    public function search()
+{
+    $product = new Product();
+
+    // Lấy từ khóa tìm kiếm từ form
+    $search = isset($_GET['name']) ? $_GET['name'] : null;
+    
+    // Gọi phương thức tìm kiếm và truyền tham số tìm kiếm
+    $data = $product->searchProducts($search);  // Truyền tham số vào đây
+    Header::render();
+    Notification::render();
+    NotificationHelper::unset();
+    // Render giao diện với dữ liệu tìm kiếm
+    Index::render($data);
+    Footer::render();
+}
+
+
 }

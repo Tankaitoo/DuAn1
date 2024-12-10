@@ -7,28 +7,28 @@ class Product extends BaseModel
     protected $table = 'products';
     protected $id = 'id';
 
-    public function getAllProduct()
-    {
-        return $this->getAll();
-    }
-    public function getOneProduct($id)
-    {
-        return $this->getOne($id);
-    }
+    // public function getAllProduct()
+    // {
+    //     return $this->getAll();
+    // }
+    // public function getOneProduct($id)
+    // {
+    //     return $this->getOne($id);
+    // }
 
-    public function createProduct($data)
-    {
-        return $this->create($data);
-    }
-    public function updateProduct($id, $data)
-    {
-        return $this->update($id, $data);
-    }
+    // public function createProduct($data)
+    // {
+    //     return $this->create($data);
+    // }
+    // public function updateProduct($id, $data)
+    // {
+    //     return $this->update($id, $data);
+    // }
 
-    public function deleteProduct($id)
-    {
-        return $this->delete($id);
-    }
+    // public function deleteProduct($id)
+    // {
+    //     return $this->delete($id);
+    // }
     public function getAllProductByStatus()
     {
         $result = [];
@@ -48,10 +48,10 @@ class Product extends BaseModel
         }
     }
 
-    public function getOneProductByName($name)
-    {
-        return $this->getOneByName($name);
-    }
+    // public function getOneProductByName($name)
+    // {
+    //     return $this->getOneByName($name);
+    // }
 
     public function getAllProductJoinCategory()
     {
@@ -63,8 +63,6 @@ class Product extends BaseModel
             FROM products 
             INNER JOIN categories 
             ON products.category_id=categories.id;";
-            
-
             $result = $this->_conn->MySQLi()->query($sql);
             return $result->fetch_all(MYSQLI_ASSOC);
         } catch (\Throwable $th) {
@@ -129,6 +127,35 @@ class Product extends BaseModel
             return $result->fetch_all(MYSQLI_ASSOC);
         } catch (\Throwable $th) {
             error_log('Lỗi khi hiển thị dữ liệu: ' . $th->getMessage());
+            return $result;
+        }
+    }
+
+    public function searchProducts($keyword = '')
+    {
+        $result = [];
+        try {
+            // Nếu không có từ khóa tìm kiếm, trả về tất cả sản phẩm
+            if (empty($keyword)) {
+                return $this->getAllProductJoinCategory();
+            }
+    
+            // Escape để tránh SQL injection
+            $keyword = $this->_conn->MySQLi()->real_escape_string($keyword);
+    
+            $sql = "SELECT products.*, categories.name 
+                    AS category_name 
+                    FROM products 
+                    INNER JOIN categories 
+                    ON products.category_id = categories.id 
+                    WHERE products.name LIKE '%{$keyword}%' 
+                    OR products.description LIKE '%{$keyword}%'
+                    OR categories.name LIKE '%{$keyword}%'";
+    
+            $result = $this->_conn->MySQLi()->query($sql);
+            return $result->fetch_all(MYSQLI_ASSOC);
+        } catch (\Throwable $th) {
+            error_log('Lỗi khi tìm kiếm sản phẩm: ' . $th->getMessage());
             return $result;
         }
     }
