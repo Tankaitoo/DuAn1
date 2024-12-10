@@ -7,6 +7,7 @@ class CartModel
     // Lấy dữ liệu giỏ hàng (mẫu dữ liệu)
     public static function getCartItems()
     {
+        
         // Dữ liệu mẫu về các sản phẩm trong giỏ hàng
         return [
             ['id' => 1, 'name' => 'Tai nghe Bluetooth', 'price' => 300000, 'quantity' => 1, 'image' => '/public/assets/client/images/product1.jpg'],

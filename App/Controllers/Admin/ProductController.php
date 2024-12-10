@@ -23,14 +23,21 @@ class ProductController
     public static function index()
     {
         $product = new Product();
-        $data = $product->getAllProductJoinCategory();
+    $limit = 6; // Number of products per page
+    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+    $offset = ($page - 1) * $limit;
 
-        Header::render();
-        Notification::render();
-        NotificationHelper::unset();
-        // hiển thị giao diện danh sách
-        Index::render($data);
-        Footer::render();
+    $data = $product->getPaginatedProducts($offset, $limit);
+    $totalProducts = $product->countTotalProducts();
+    $totalPages = ceil($totalProducts / $limit);
+
+    Header::render();
+    Notification::render();
+    NotificationHelper::unset();
+
+    // Pass pagination data to the view
+    Index::render($data, $page, $totalPages);
+    Footer::render();
     }
 
 

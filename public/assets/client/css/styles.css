@@ -1,0 +1,72 @@
+         .card {
+                max-width: 100%;  /* Sản phẩm chiếm toàn bộ chiều rộng cột */
+                margin: 0 auto;    /* Căn giữa thẻ sản phẩm */
+                border-radius: 10px; /* Bo góc cho sản phẩm */
+                transition: transform 0.3s ease; /* Hiệu ứng khi hover */
+                height: 100%; /* Đảm bảo sản phẩm có chiều cao đều */
+            }
+
+            .card:hover {
+                box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);  /* Bóng đổ khi hover */
+                transform: translateY(-5px);  /* Nâng lên một chút */
+            }
+
+            .card-img-top {
+                width: 100%; /* Chiều rộng của hình ảnh chiếm toàn bộ thẻ */
+                height: 180px; /* Chiều cao của hình ảnh */
+                object-fit: cover;  /* Đảm bảo hình ảnh thu nhỏ lại để không bị mất hình */
+            }
+
+            .card-body {
+                padding: 0.75rem; /* Giảm padding để nội dung vừa vặn */
+            }
+
+            .card-title {
+                font-size: 0.9rem; /* Giảm kích thước chữ tiêu đề */
+                color: #2c3e50;
+                font-weight: bold;
+                height: 40px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .card-body p {
+                font-size: 0.9rem; /* Giảm kích thước chữ cho giá */
+                line-height: 1.2; /* Cải thiện khoảng cách dòng */
+            }
+
+            .badge.bg-danger {
+                background-color: #e74c3c;
+                font-size: 0.75em;
+            }
+
+            .card-footer {
+                background-color: #fff;
+                border-top: 1px solid #e6e6e6;
+            }
+
+            .btn-outline-primary {
+                width: 100%;
+                padding: 8px;
+                font-size: 0.8rem; /* Giảm kích thước chữ cho nút */
+            }
+
+            /* Điều chỉnh độ rộng của cột sản phẩm */
+            .col-md-3 {
+                display: flex;
+                justify-content: center;
+            }
+
+            /* Đảm bảo sản phẩm có chiều rộng phù hợp trên màn hình nhỏ và lớn */
+            .card-container {
+                display: flex;
+                flex-wrap: wrap;
+                
+            }
+
+            .card-container .col {
+                max-width: 23%; /* Chiều rộng tối đa mỗi cột là 23% */
+                flex: 1 0 23%; /* Chiều rộng mỗi cột khi không có đủ không gian */
+            }
+            

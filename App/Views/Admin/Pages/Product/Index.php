@@ -6,13 +6,10 @@ use App\Views\BaseView;
 
 class Index extends BaseView
 {
-    public static function render($data = null)
+    public static function render($data = null, $currentPage = 1, $totalPages = 1)
     {
-?>
+    ?>
         <div class="page-wrapper">
-            <!-- ============================================================== -->
-            <!-- Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-12 d-flex no-block align-items-center">
@@ -28,27 +25,15 @@ class Index extends BaseView
                     </div>
                 </div>
             </div>
-            <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
             <div class="container-fluid">
-                <!-- ============================================================== -->
-                <!-- Start Page Content -->
-                <!-- ============================================================== -->
                 <div class="row">
                     <div class="col-12">
-
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Danh sách sản phẩm</h5>
-                                <?php
-                                if (count($data)) :
-                                ?>
+                                <?php if (count($data)) : ?>
                                     <div class="table-responsive">
-                                        <table class="table display table-striped ">
+                                        <table class="table display table-striped">
                                             <thead>
                                                 <tr>
                                                     <th>ID</th>
@@ -62,65 +47,67 @@ class Index extends BaseView
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php
-                                                foreach ($data as $item) :
-                                                ?>
+                                                <?php foreach ($data as $item) : ?>
                                                     <tr>
                                                         <td><?= $item['id'] ?></td>
                                                         <td>
-                                                            <img src="<?=APP_URL?>/public/uploads/products/<?=$item['image']?>" alt="" width="100px">
+                                                            <img src="<?= APP_URL ?>/public/uploads/products/<?= $item['image'] ?>" alt="" width="100px">
                                                         </td>
                                                         <td><?= $item['name'] ?></td>
-                                                        <td><?=number_format($item['price'])?></td>
-                                                        <td><?=number_format($item['discount_price'])?></td>
-                                                        <td><?=$item['category_name']?></td>
+                                                        <td><?= number_format($item['price']) ?></td>
+                                                        <td><?= number_format($item['discount_price']) ?></td>
+                                                        <td><?= $item['category_name'] ?></td>
                                                         <td><?= ($item['status'] == 1) ? 'Hiển thị' : 'Ẩn' ?></td>
                                                         <td>
-                                                            <a href="/admin/products/<?= $item['id'] ?>" class="btn btn-primary ">Sửa</a>
+                                                            <a href="/admin/products/<?= $item['id'] ?>" class="btn btn-primary">Sửa</a>
                                                             <form action="/admin/products/<?= $item['id'] ?>" method="post" style="display: inline-block;" onsubmit="return confirm('Chắc chưa?')">
-                                                                <input type="hidden" name="method" value="DELETE" id="">
+                                                                <input type="hidden" name="method" value="DELETE">
                                                                 <button type="submit" class="btn btn-danger text-white">Xoá</button>
                                                             </form>
                                                         </td>
                                                     </tr>
-                                                <?php
-                                                endforeach;
-
-
-                                                ?>
+                                                <?php endforeach; ?>
                                             </tbody>
                                         </table>
                                     </div>
-                                <?php
-                                else :
+                                    <!-- Pagination -->
+                                    <nav>
+    <ul class="pagination justify-content-center">
+        <?php if ($currentPage > 1) : ?>
+            <li class="page-item">
+                <a class="page-link" href="?page=<?= $currentPage - 1 ?>"><<</a>
+            </li>
+        <?php endif; ?>
 
-                                ?>
+        <?php
+        // Xác định phạm vi hiển thị trang
+        $startPage = max(1, $currentPage - 2);
+        $endPage = min($totalPages, $currentPage + 2);
+        ?>
+
+        <?php for ($i = $startPage; $i <= $endPage; $i++) : ?>
+            <li class="page-item <?= ($i == $currentPage) ? 'active' : '' ?>">
+                <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+            </li>
+        <?php endfor; ?>
+
+        <?php if ($currentPage < $totalPages) : ?>
+            <li class="page-item">
+                <a class="page-link" href="?page=<?= $currentPage + 1 ?>">>></a>
+            </li>
+        <?php endif; ?>
+    </ul>
+</nav>
+
+                                <?php else : ?>
                                     <h4 class="text-center text-danger">Không có dữ liệu</h4>
-                                <?php
-                                endif;
-
-                                ?>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- ============================================================== -->
-                <!-- End PAge Content -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Right sidebar -->
-                <!-- ============================================================== -->
-                <!-- .right-sidebar -->
-                <!-- ============================================================== -->
-                <!-- End Right sidebar -->
-                <!-- ============================================================== -->
             </div>
-            <!-- ============================================================== -->
-            <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-
-
     <?php
+        }
     }
-}
+    

@@ -55,6 +55,7 @@ class CartController
         NotificationHelper::set('success', 'Xóa sản phẩm khỏi giỏ hàng thành công');
         header('Location: /cart');
     }
+    
 
 }
 

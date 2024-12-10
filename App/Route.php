@@ -76,7 +76,6 @@ class Route
 
             // Vd: $controller = App\Controllers\Client\CategoryController
             $controllerInstance = new $controller();
-
             // Vd: $method = index
             $controllerMethod = $controllerInstance->$method();
         }
@@ -101,10 +100,12 @@ class Route
 
             // Vd: $method = edit($id) = edit(1)
             $controllerMethod = $controllerInstance->$method($id);
+            
         }
         // không khớp với route đã định nghĩa
         else {
             echo 'not found';
         }
     }
+    
 }

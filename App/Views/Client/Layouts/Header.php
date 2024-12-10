@@ -24,14 +24,73 @@ class Header extends BaseView
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="<?= APP_URL ?>/public/assets/client/css/style.css">
+    <style>
+        /* Navbar Styles */
+        .navbar {
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 10px 20px;
+        }
+
+        .navbar-brand img {
+            width: 80px;
+        }
+
+        .navbar-nav .nav-item {
+            margin-right: 15px;
+        }
+
+        .navbar-nav .nav-link {
+            font-size: 1rem;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #007bff;
+        }
+
+        .navbar-toggler {
+            border: none;
+        }
+
+        .navbar-toggler-icon {
+            background-color: #333;
+        }
+
+        .form-inline input[type="search"] {
+            border-radius: 20px;
+            padding: 5px 10px;
+            margin-right: 10px;
+        }
+
+        .form-inline button {
+            border-radius: 20px;
+        }
+
+        /* Dropdown styles */
+        .dropdown-menu {
+            min-width: 200px;
+        }
+
+        .dropdown-item {
+            font-size: 0.9rem;
+        }
+
+        /* Custom styling for active link */
+        .navbar-nav .nav-item.active .nav-link {
+            color: #007bff !important;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light text-dark" style="background-color: #e3f2fd;">
+    <nav class="navbar navbar-expand-lg navbar-light">
         <a class="navbar-brand" href="/">
-            <img src="<?= APP_URL ?>/public/assets/client/images/logo.png" alt="Logo" width="80">
+            <img src="<?= APP_URL ?>/public/assets/client/images/logo.png" alt="Logo">
         </a>
         
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,7 +101,7 @@ class Header extends BaseView
             <!-- Left-aligned navigation links -->
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item active">
-                    <a class="nav-link text-body" href="/">Trang chủ <span class="sr-only">(current)</span></a>
+                    <a class="nav-link text-body" href="/">Trang chủ</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-body" href="/products">Sản phẩm</a>
@@ -83,8 +142,8 @@ class Header extends BaseView
 
             <!-- Search form -->
             <form class="form-inline my-2 my-lg-0" action="/search" method="GET">
-                <input class="form-control mr-sm-2" type="search" name="query" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <input class="form-control mr-sm-2" type="search" name="query" placeholder="Tìm kiếm" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm kiếm</button>
             </form>
         </div>
     </nav>
