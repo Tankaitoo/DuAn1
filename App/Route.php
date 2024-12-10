@@ -101,10 +101,12 @@ class Route
 
             // Vd: $method = edit($id) = edit(1)
             $controllerMethod = $controllerInstance->$method($id);
+            
         }
         // không khớp với route đã định nghĩa
         else {
             echo 'not found';
         }
     }
+    
 }

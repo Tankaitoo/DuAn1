@@ -43,6 +43,13 @@ class Index extends BaseView
 
                         <div class="card">
                             <div class="card-body">
+                            <div class="search-bar">
+    <form action="/admin/products/search" method="GET">
+        <input type="text" name="query" placeholder="Tìm kiếm sản phẩm..." required>
+        <button type="submit">Tìm kiếm</button>
+    </form>
+</div>
+
                                 <h5 class="card-title">Danh sách sản phẩm</h5>
                                 <?php
                                 if (count($data)) :
@@ -77,7 +84,7 @@ class Index extends BaseView
                                                         <td><?= ($item['status'] == 1) ? 'Hiển thị' : 'Ẩn' ?></td>
                                                         <td>
                                                             <a href="/admin/products/<?= $item['id'] ?>" class="btn btn-primary ">Sửa</a>
-                                                            <form action="/admin/products/<?= $item['id'] ?>" method="post" style="display: inline-block;" onsubmit="return confirm('Chắc chưa?')">
+                                                            <form action="/admin/products/<?= $item['id'] ?>" method="post" style="display: inline-block;" onsubmit="return confirm('Bạn có muốn xóa sản phẩm này?')">
                                                                 <input type="hidden" name="method" value="DELETE" id="">
                                                                 <button type="submit" class="btn btn-danger text-white">Xoá</button>
                                                             </form>

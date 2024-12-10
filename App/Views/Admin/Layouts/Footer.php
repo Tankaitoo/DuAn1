@@ -14,7 +14,7 @@ class Footer extends BaseView
                 <!-- footer -->
                 <!-- ============================================================== -->
                 <footer class="footer text-center">
-                        Lý Chí Thanh
+                                Kenzie
                 </footer>
                 <!-- ============================================================== -->
                 <!-- End footer -->

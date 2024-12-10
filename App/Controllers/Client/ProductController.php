@@ -65,4 +65,5 @@ class ProductController
         ProductCategory::render($data);
         Footer::render();
     }
+    
 }

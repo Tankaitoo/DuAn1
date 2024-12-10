@@ -132,4 +132,6 @@ class Product extends BaseModel
             return $result;
         }
     }
+    
+    
 }

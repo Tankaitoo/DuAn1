@@ -36,6 +36,14 @@ Route::post('/cart/add', 'App\Controllers\Client\CartController@add');
 Route::get('/cart/remove/{id}', 'App\Controllers\Client\CartController@remove');
 
 
+// Route hiển thị trang thanh toán
+Route::get('/checkout', 'App\Controllers\Client\CheckoutController@index');
+Route::post('/checkout', 'App\Controllers\Client\CheckoutController@processCheckout');
+
+// Route xử lý thanh toán
+Route::post('/checkout', 'App\Controllers\Client\CheckoutController@process');
+// Route cho trang thành công sau khi đặt hàng
+Route::get('/order-success', 'App\Controllers\Client\OrderSuccessController@index');
 //*** Form
 Route::get('/register', 'App\Controllers\Client\AuthController@register');
 Route::post('/register', 'App\Controllers\Client\AuthController@registerAction');
@@ -93,6 +101,7 @@ Route::post('/admin/products', 'App\Controllers\Admin\ProductController@store');
 
 // GET /products/{id} (lấy chi tiết sản phẩm với id cụ thể)
 Route::get('/admin/products/{id}', 'App\Controllers\Admin\ProductController@edit');
+
 
 // PUT /products/{id} (update sản phẩm với id cụ thể)
 Route::put('/admin/products/{id}', 'App\Controllers\Admin\ProductController@update');
