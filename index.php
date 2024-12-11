@@ -3,7 +3,7 @@ session_start();
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
-ini_set('log_errors', TRUE); 
+ini_set('log_errors', TRUE);
 
 //Kiểm tra xem có file log chưa
 //chưa: tạo file
@@ -39,10 +39,8 @@ Route::get('/cart/remove/{id}', 'App\Controllers\Client\CartController@remove');
 
 // Route hiển thị trang thanh toán
 Route::get('/checkout', 'App\Controllers\Client\CheckoutController@index');
-Route::post('/checkout', 'App\Controllers\Client\CheckoutController@processCheckout');
-
 // Route xử lý thanh toán
-Route::post('/checkout', 'App\Controllers\Client\CheckoutController@process');
+Route::get('/checkout_vup', controllerMethod: 'App\Controllers\Client\CheckoutController@processCheckout');
 // Route cho trang thành công sau khi đặt hàng
 Route::get('/order-success', 'App\Controllers\Client\OrderSuccessController@index');
 //*** Form
@@ -143,5 +141,12 @@ Route::put('/admin/comments/{id}', 'App\Controllers\Admin\CommentController@upda
 
 // DELETE /Comments/{id} (delete bình luận với id cụ thể)
 Route::delete('/admin/comments/{id}', 'App\Controllers\Admin\CommentController@delete');
+
+// *** Order
+// GET /orders (lấy danh sách đơn hàng)
+Route::get('/admin/orders/index', 'App\Controllers\Admin\OrderController@index');
+
+// GET /orders/view/{id} (lấy chi tiết đơn hàng với id cụ thể)
+Route::get('/admin/orders/view/{id}', 'App\Controllers\Admin\OrderController@view');
 
 Route::dispatch($_SERVER['REQUEST_URI']);

@@ -79,7 +79,7 @@ abstract class BaseModel implements CrudInterface
 
             return $stmt->execute();
         } catch (\Throwable $th) {
-            error_log('Lỗi khi thêm dữ liệu: ' . $th->getMessage());
+            echo 'Lỗi khi thêm dữ liệu: ' . $th->getMessage();
             return false;
         }
     }

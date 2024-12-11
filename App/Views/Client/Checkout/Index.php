@@ -9,7 +9,7 @@ class Index extends BaseView
     {
         $cart = $data['cart'] ?? [];
         $total = $data['total'] ?? 0;
-?>
+        ?>
         <style>
             /* General reset and body style */
             * {
@@ -71,7 +71,8 @@ class Index extends BaseView
                 font-size: 1rem;
             }
 
-            .table th, .table td {
+            .table th,
+            .table td {
                 padding: 12px;
                 text-align: center;
                 border-bottom: 1px solid #dee2e6;
@@ -98,16 +99,19 @@ class Index extends BaseView
                 font-size: 0.9rem;
                 color: #495057;
                 font-weight: bold;
-                
+
             }
 
             .form-control {
-                font-size: 1.1rem; /* Tăng kích thước font trong ô nhập liệu */
-    padding: 1px; /* Tăng padding để ô nhập liệu rộng hơn */
-    height: 45px; /* Tăng chiều cao của ô nhập liệu */
-    border-radius: 5px;
-    border: 1px solid #ced4da;
-    width: 100%;
+                font-size: 1.1rem;
+                /* Tăng kích thước font trong ô nhập liệu */
+                padding: 1px;
+                /* Tăng padding để ô nhập liệu rộng hơn */
+                height: 45px;
+                /* Tăng chiều cao của ô nhập liệu */
+                border-radius: 5px;
+                border: 1px solid #ced4da;
+                width: 100%;
             }
 
             .form-control:focus {
@@ -150,7 +154,8 @@ class Index extends BaseView
             }
 
             /* Toggle payment options */
-            #momo-info, #bank-info {
+            #momo-info,
+            #bank-info {
                 display: none;
                 margin-bottom: 10px;
             }
@@ -180,7 +185,8 @@ class Index extends BaseView
                     font-size: 1.4rem;
                 }
 
-                .table th, .table td {
+                .table th,
+                .table td {
                     padding: 10px;
                     font-size: 0.9rem;
                 }
@@ -221,11 +227,13 @@ class Index extends BaseView
                 </thead>
                 <tbody>
                     <?php
+                    $total = 0;
                     foreach ($cart as $key => $item) {
-                        $price = isset($item['price']) ? (float)$item['price'] : 0;
-                        $quantity = isset($item['quantity']) ? (int)$item['quantity'] : 0;
+                        $price = isset($item['price']) ? (float) $item['price'] : 0;
+                        $quantity = isset($item['quantity']) ? (int) $item['quantity'] : 0;
                         $subtotal = $price * $quantity;
-                    ?>
+                        $total += $subtotal;
+                        ?>
                         <tr>
                             <td><?= $key + 1 ?></td>
                             <td><?= $item['name'] ?? 'Không tên' ?></td>
@@ -242,7 +250,7 @@ class Index extends BaseView
             </table>
 
             <!-- Form xử lý thanh toán -->
-            <form id="checkout-form" action="/checkout-submit" method="POST">
+            <form id="checkout-form" action="/checkout_vup" method="GET">
                 <div class="mb-3">
                     <label for="name" class="form-label">Họ và tên</label>
                     <input type="text" class="form-control" id="name" name="name" required>
@@ -256,6 +264,7 @@ class Index extends BaseView
                 <div class="mb-3">
                     <label for="phone" class="form-label">Số điện thoại</label>
                     <input type="text" class="form-control" id="phone" name="phone" required>
+                    <input type="hidden" name="total" value="<?= $total ?>">
                 </div>
 
                 <div class="mb-5">
@@ -288,20 +297,10 @@ class Index extends BaseView
         </div>
 
         <script>
-            // JavaScript để hiển thị thông báo thành công
-            document.getElementById('checkout-form').addEventListener('submit', function(event) {
-                event.preventDefault();  // Ngừng gửi form
 
-                // Thực hiện các thao tác gửi form đến server hoặc xử lý logic khác
-                setTimeout(function() {
-                    // Hiển thị thông báo thành công
-                    document.getElementById('success-message').style.display = 'block';
-                    document.getElementById('checkout-form').reset();  // Làm mới form
-                }, 1000);
-            });
 
             // Toggle thông tin thanh toán theo phương thức chọn
-            document.getElementById('payment_method').addEventListener('change', function() {
+            document.getElementById('payment_method').addEventListener('change', function () {
                 var momoInfo = document.getElementById('momo-info');
                 var bankInfo = document.getElementById('bank-info');
                 var paymentMethod = this.value;
@@ -318,7 +317,7 @@ class Index extends BaseView
                 }
             });
         </script>
-<?php
+        <?php
     }
 }
 ?>
